@@ -1,0 +1,15 @@
+import pandas as pd
+from datetime import datetime
+from plyer import notification
+
+df = pd.read_csv("birthdays.csv")
+today = datetime.now().strftime("%m-%d")
+
+for index, row in df.iterrows():
+    bday = datetime.strptime(row['Date'], "%Y-%m-%d").strftime("%m-%d")
+    if bday == today:
+        notification.notify(
+            title="🎉 Birthday Reminder!",
+            message=f"Today is {row['Name']}'s Birthday 🥳",
+            timeout=10
+        )
